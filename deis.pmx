@@ -5,7 +5,7 @@ keywords: Deis
 type: Default
 documentation: ''
 images:
-- name: deis_controller_latest
+- name: deis-controller
   source: deis/controller:latest
   category: dies
   type: Default
@@ -17,15 +17,11 @@ images:
   - variable: PUBLISH
     value: '8000'
   - variable: HOST
-    value: 10.0.42.1
+    value: 10.91.190.101
   volumes:
   - host_path: ''
     container_path: deis-loggger
-- name: deis_data
-  source: deis/data:latest
-  category: Misc
-  type: Default
-- name: deis_registry
+- name: deis-registry
   source: deis/registry:latest
   category: dies
   type: Default
@@ -41,39 +37,67 @@ images:
   volumes:
   - host_path: ''
     container_path: deis-registry-data
-- name: deis_slugbuilder
+- name: deis-slugbuilder
   source: deis/slugbuilder:latest
   category: Slugger
   type: Default
-- name: deis_router
+- name: deis-router
   source: deis/router:latest
   category: dies
   type: Default
-- name: deis_base
-  source: deis/base:latest
-  category: Misc
-  type: Default
-- name: deis_slugrunner
+  ports:
+  - host_port: '80'
+    container_port: '80'
+    proto: TCP
+  - host_port: '2222'
+    container_port: '2222'
+    proto: TCP
+  environment:
+  - variable: PUBLISH
+    value: '80 '
+  - variable: HOST
+    value: 10.91.190.101
+- name: deis-slugrunner
   source: deis/slugrunner:latest
   category: Slugger
   type: Default
-- name: deis_logger
+- name: deis-logger
   source: deis/logger:latest
   category: dies
   type: Default
-- name: deis_tester
-  source: deis/tester:latest
-  category: Misc
-  type: Default
-- name: deis_builder
+  ports:
+  - host_port: '514'
+    container_port: '514'
+    proto: UDP
+  environment:
+  - variable: PUBLISH
+    value: '514'
+  - variable: HOST
+    value: 10.91.190.101
+  volumes:
+  - host_path: ''
+    container_path: deis-logger-data
+- name: deis-builder
   source: deis/builder:latest
   category: dies
   type: Default
-- name: deis_cache
+- name: deis-cache
   source: deis/cache:latest
   category: dies
   type: Default
-- name: deis_database
+- name: deis-database
   source: deis/database:latest
   category: dies
   type: Default
+  ports:
+  - host_port: '5432'
+    container_port: '5432'
+    proto: TCP
+  environment:
+  - variable: PUBLISH
+    value: '5432'
+  - variable: HOST
+    value: 10.91.190.101
+  volumes:
+  - host_path: ''
+    container_path: deis-database-data
