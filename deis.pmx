@@ -1,0 +1,79 @@
+---
+name: Deis
+description: Deis Template
+keywords: Deis
+type: Default
+documentation: ''
+images:
+- name: deis_controller_latest
+  source: deis/controller:latest
+  category: dies
+  type: Default
+  ports:
+  - host_port: '8000'
+    container_port: '8000'
+    proto: TCP
+  environment:
+  - variable: PUBLISH
+    value: '8000'
+  - variable: HOST
+    value: 10.0.42.1
+  volumes:
+  - host_path: ''
+    container_path: deis-loggger
+- name: deis_data
+  source: deis/data:latest
+  category: Misc
+  type: Default
+- name: deis_registry
+  source: deis/registry:latest
+  category: dies
+  type: Default
+  ports:
+  - host_port: '5000'
+    container_port: '5000'
+    proto: TCP
+  environment:
+  - variable: PUBLISH
+    value: '5000 '
+  - variable: HOST
+    value: 10.91.190.101
+  volumes:
+  - host_path: ''
+    container_path: deis-registry-data
+- name: deis_slugbuilder
+  source: deis/slugbuilder:latest
+  category: Slugger
+  type: Default
+- name: deis_router
+  source: deis/router:latest
+  category: dies
+  type: Default
+- name: deis_base
+  source: deis/base:latest
+  category: Misc
+  type: Default
+- name: deis_slugrunner
+  source: deis/slugrunner:latest
+  category: Slugger
+  type: Default
+- name: deis_logger
+  source: deis/logger:latest
+  category: dies
+  type: Default
+- name: deis_tester
+  source: deis/tester:latest
+  category: Misc
+  type: Default
+- name: deis_builder
+  source: deis/builder:latest
+  category: dies
+  type: Default
+- name: deis_cache
+  source: deis/cache:latest
+  category: dies
+  type: Default
+- name: deis_database
+  source: deis/database:latest
+  category: dies
+  type: Default
